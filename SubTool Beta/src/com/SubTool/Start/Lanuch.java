@@ -6,6 +6,7 @@ import java.io.File;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import com.SubTool.API.ColorAPI;
+import com.SubTool.API.ConfigAPI;
 import com.SubTool.API.DataAPI;
 import com.SubTool.API.FunctionAPI;
 import com.SubTool.API.ViewAPI;
@@ -39,14 +40,14 @@ public class Lanuch {
 	private Replace Re_Mod;
 
 	
-	public Lanuch(File file) {
+	public Lanuch(File file,ConfigAPI config) {
 
 		if (file == null)
-			new lanuch().UI(new DataAPI(f, null).openfile(f));
+			new lanuch().UI(new DataAPI(f, null).openfile(f),config);
 		else {
 
 			if (file.exists()) {
-				new lanuch().UI(file);
+				new lanuch().UI(file,config);
 			} else 
 				System.exit(0);
 		}
@@ -57,7 +58,7 @@ public class Lanuch {
 	
 	
 	class lanuch {
-		public void UI(File file) {
+		public void UI(File file,ConfigAPI config) {
 			
 			//初始化界面
 			f=new JFrame();
@@ -82,7 +83,7 @@ public class Lanuch {
 			UIManager.put("Button.select", new Color(255, 255, 255, 0));// 全局按钮按下时颜色
 			
 			
-			if(data.reconfig()==null) {//检测配置文件
+			if(config==null) {//检测配置文件
 				//System.out.println("未检测到配置文件，载入程序预设");
 				setting=new Setting(f, null, api, data, color);
 				switch (data.type) {
@@ -107,7 +108,7 @@ public class Lanuch {
 				
 			}else {
 				//System.out.println("配置文件存在");
-				setting=new Setting(f, data.config, api, data, color);
+				setting=new Setting(f, config, api, data, color);
 				
 			}
 			api.SetTheme(setting, data, color, MPanel, f);

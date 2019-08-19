@@ -25,6 +25,8 @@ public class Replace extends JPanel {
 
 	/**
 	 * 查找替换模块
+	 * 
+	 * 问题较多，待排查
 	 */
 	private static final long serialVersionUID = 1L;
 	// 全局变量

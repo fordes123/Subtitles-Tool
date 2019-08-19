@@ -18,7 +18,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import com.SubTool.API.DataAPI;
 import com.SubTool.API.ViewAPI;
-import com.SubTool.Mod.Informations;
 
 public class MainPanel extends JPanel {
 

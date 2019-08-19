@@ -23,7 +23,9 @@ import com.SubTool.UI.MainPanel;
 public class Informations extends JPanel{
 
 	/**
+	 * 字幕信息统计模块
 	 * 
+	 * 已知问题：汉字和单词数量统计暂不可用
 	 */
 	private static final long serialVersionUID = 1L;
 

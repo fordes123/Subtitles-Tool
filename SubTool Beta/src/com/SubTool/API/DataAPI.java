@@ -14,7 +14,9 @@ import java.util.regex.Pattern;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
@@ -28,7 +30,7 @@ public class DataAPI {
 	// 全局变量
 	public File file;
 	public String version = "V2.0.Beta";
-	public String Build = "19046";
+	public String Build = "19047";
 	public String way = "UTF-8";// 默认编码方式
 	public int type = 0;// 文件类型1str，2ass，3lrc
 
@@ -41,21 +43,13 @@ public class DataAPI {
 	public boolean SettingState = false;// 设置界面状态
 	public boolean Mod_state = false;
 	public boolean Mod = false;
+	public String workmode;//工作空间路径
 
-	public File cfile = new File(System.getProperty("user.dir") + "\\config.in");
+
 	public File newfile;
 	public String subtitles;
-	public CONFIG config = new CONFIG();
 	public THEME theme = new THEME();
-
-	// 配置参数
-	public class CONFIG {
-		public boolean t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12;
-		public int v1, v2, v3, v4, v5, v6, v7, v8;
-		public Color sidecolor;
-		public Color maincolor;
-		public Color fontolor;
-	}
+	public File cfile = new File(System.getProperty("user.dir") + "\\config.in");
 
 	/**
 	 * 将主题相关封装在一个类中
@@ -103,115 +97,7 @@ public class DataAPI {
 			return version;
 	}
 
-	/**
-	 * 读取配置文件
-	 */
-	public CONFIG reconfig() {
-
-		try {
-			if (!cfile.exists()) {// 配置文件不存在
-				System.out.println("配置文件不存在，已重新生成");
-				cfile.createNewFile();
-				return null;
-			} else {
-
-				System.out.println("配置文件已存在，已读取，还原至设置");
-				BufferedReader re = new BufferedReader(new InputStreamReader(new FileInputStream(cfile), way));
-				BufferedReader r = new BufferedReader(re);
-				r.readLine();// 跳过第一行
-
-				// 主题设置
-				String[] list1 = r.readLine().split(",,");
-				if (Integer.parseInt(list1[0]) == 0)
-					config.t1 = false;// 主题混搭开关
-				else
-					config.t1 = true;
-				config.v1 = Integer.parseInt(list1[1]);// 主题序号
-				if (Integer.parseInt(list1[2]) == 1)
-					config.t2 = true;
-				else
-					config.t2 = false;
-				config.v2 = Integer.parseInt(list1[3]);
-				config.sidecolor = new Color(Integer.parseInt(list1[4].split(",")[0]),
-						Integer.parseInt(list1[4].split(",")[1]), Integer.parseInt(list1[4].split(",")[2]),
-						Integer.parseInt(list1[4].split(",")[3]));
-
-				if (Integer.parseInt(list1[5]) == 0)
-					config.t3 = false;
-				else
-					config.t3 = true;
-				config.v3 = Integer.parseInt(list1[6]);
-				config.maincolor = new Color(Integer.parseInt(list1[7].split(",")[0]),
-						Integer.parseInt(list1[7].split(",")[1]), Integer.parseInt(list1[7].split(",")[2]),
-						Integer.parseInt(list1[7].split(",")[3]));
-
-				// 浏览设置
-				String[] list2 = r.readLine().split(",,");
-				config.v4 = Integer.parseInt(list2[0]);// 字体
-				config.v5 = Integer.parseInt(list2[1]);// 大小
-				if (Integer.parseInt(list2[2]) == 1) {// 自定色
-					config.t4 = true;
-					config.fontolor = new Color(Integer.parseInt(list2[4].split(",")[0]),
-							Integer.parseInt(list2[4].split(",")[1]), Integer.parseInt(list2[4].split(",")[2]),
-							Integer.parseInt(list2[4].split(",")[3]));
-				} else {
-					config.t4 = false;
-					config.fontolor = new Color(0, 0, 0, 255);
-				}
-				config.v6 = Integer.parseInt(list2[3]);// 字体颜色
-				if (Integer.parseInt(list2[5]) == 1) {// 组合风
-					config.t5 = true;
-					if (Integer.parseInt(list2[7]) == 1)
-						config.t6 = true;
-					else
-						config.t6 = false;
-					if (Integer.parseInt(list2[8]) == 1)
-						config.t7 = true;
-					else
-						config.t7 = false;
-					if (Integer.parseInt(list2[9]) == 1)
-						config.t8 = true;
-					else
-						config.t8 = false;
-				}
-				config.v7 = Integer.parseInt(list2[6]);
-
-				// 功能设置
-				String[] list3 = r.readLine().split(",,");
-				if (Integer.parseInt(list3[0]) == 1)
-					config.t9 = true;
-				else
-					config.t9 = false;
-				if (Integer.parseInt(list3[1]) == 1)
-					config.t10 = true;
-				else
-					config.t10 = false;
-				config.v8 = Integer.parseInt(list3[2]);
-				if (Integer.parseInt(list3[3]) == 1)
-					config.t11 = true;
-				else
-					config.t11 = false;
-				if (Integer.parseInt(list3[4]) == 1)
-					config.t12 = true;
-				else
-					config.t12 = false;
-
-				re.close();// 关闭文件流
-				return config;
-
-			}
-		} catch (IOException e) {
-			// TODO 文件读取异常
-			return null;
-			// e.printStackTrace();
-		} catch (NullPointerException e) {
-			// TODO: handle exception
-			// 文件格式错误
-			System.out.println("配置文件格式错误。。");
-			return null;
-		}
-
-	}
+	
 
 	/**
 	 * 读取设置偏好并保存至配置文件
@@ -264,7 +150,7 @@ public class DataAPI {
 
 				list2 += p.fontcolor.getRed() + "," + p.fontcolor.getGreen() + "," + p.fontcolor.getBlue() + ","
 						+ p.fontcolor.getAlpha() + ",,";
-				System.out.println(list2);
+				//System.out.println(list2);
 			} else {
 				list2 += "0,,";
 				list2 += p.L1_j3.getSelectedIndex() + ",,";
@@ -311,9 +197,15 @@ public class DataAPI {
 				list3 += "0,,";
 
 			if (p.L3_j6.isSelected())
-				list3 += "1";
+				list3 += "1,,";
 			else
-				list3 += "0";
+				list3 += "0,,";
+			if(p.L3_j7.isSelected()) 
+				list3 += "1,,"+workmode;
+			else 
+				list3 += "0,,"+workmode;
+			
+				
 
 			wr.write("\n" + list3);// 写入主题配置
 			wr.flush();// 清除缓冲
@@ -417,19 +309,28 @@ public class DataAPI {
 	 ******************************************************************************/
 	public void Display(MainPanel MPanel) {
 
-		// System.out.println(subtitles);
+		// 字体风格
 		Style def = MPanel.jta.getStyledDocument().addStyle(null, null);
-		StyleConstants.setFontFamily(def, theme.fontface);
+		StyleConstants.setFontFamily(def, theme.fontface);// 获取字体
+		StyleConstants.setFontSize(def, theme.fontsize);// 字体大小
 		Style normal = MPanel.jta.addStyle("normal", def);
-		StyleConstants.setFontSize(def, theme.fontsize);
-		Style black = MPanel.jta.addStyle("black", normal);
-		StyleConstants.setForeground(black, Color.black);
+		Style face = MPanel.jta.addStyle("face", normal);
+
+		StyleConstants.setForeground(face, theme.fontcolor);// 字体颜色
+
+		StyleConstants.setBold(def, theme.Bold); // 字体加粗
+		StyleConstants.setItalic(def, theme.Italic);// 字体倾斜
+		StyleConstants.setUnderline(def, theme.Underline);// 下划线
 
 		try {
-			MPanel.jta.getDocument().insertString(MPanel.jta.getDocument().getLength(), subtitles, black);
-		} catch (BadLocationException e1) { // TODO 自动生成的 catch 块
+			MPanel.jta.getDocument().insertString(MPanel.jta.getDocument().getLength(), subtitles, face);
+		} catch (BadLocationException e1) {
+			// TODO 自动生成的 catch 块
 			e1.printStackTrace();
 		}
+
+		MPanel.jta.setCaretPosition(0); // 默认显示顶端
+
 	}
 
 	/******************************************************************************
@@ -808,6 +709,33 @@ public class DataAPI {
 		return file;
 	}
 
+	//打开一个文件夹选择对话框，并返回选中的文件夹路径
+	public String select(JFrame f) {
+		try {
+			JFileChooser jfc=new JFileChooser();  
+	        //设置当前路径为桌面路径,否则将我的文档作为默认路径
+	        FileSystemView fsv = FileSystemView .getFileSystemView();
+	        jfc.setCurrentDirectory(fsv.getHomeDirectory());
+	        //JFileChooser.FILES_AND_DIRECTORIES 选择路径和文件
+	        jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY );  
+	        //弹出的提示框的标题
+	        jfc.showDialog(new JLabel(), "确定");  
+	        //用户选择的路径或文件
+	        File file=jfc.getSelectedFile();  
+	        String path=file.getPath();
+		    //System.out.println("path: "+path);
+	        return  path ;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
+ 
+	}
+
+	
+	
+	
+	
 	/******************************************************************************
 	 * 替换
 	 * 

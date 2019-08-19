@@ -20,7 +20,7 @@ import com.SubTool.API.ViewAPI;
 public class UpdateLog extends JPanel{
 	
 	/**
-	 * 
+	 * 更新日志
 	 */
 	private static final long serialVersionUID = 1L;
 	//全局变量
@@ -132,8 +132,13 @@ public class UpdateLog extends JPanel{
 
 			
 			jta.getDocument().insertString(jta.getDocument().getLength(), "版本号：V2.0.Beta"+"\n", title);
-			jta.getDocument().insertString(jta.getDocument().getLength(), "Build Version：19046"+"\n\n", doc);
+			jta.getDocument().insertString(jta.getDocument().getLength(), "Build Version：19047"+"\n\n", doc);
+			jta.getDocument().insertString(jta.getDocument().getLength(), "  •新增  启动模式设置，可以选择启动时打开最后浏览的文件或是指定文件夹 "+"\n", doc);
+			jta.getDocument().insertString(jta.getDocument().getLength(), "  •修复  字体风格设置无法从配置文件正常读取显示"+"\n", doc);
+			jta.getDocument().insertString(jta.getDocument().getLength(), "  •修复  某些设置项逻辑错误导致的无效设置"+"\n", doc);
 			jta.getDocument().insertString(jta.getDocument().getLength(), "  •调整  首个公测版，代码重构，修正大量错误，提高运行速度"+"\n", doc);
+			jta.getDocument().insertString(jta.getDocument().getLength(), "  •调整  设置保存至配置文件策略由默认关闭调整为默认开启(建议开启)"+"\n", doc);
+			jta.getDocument().insertString(jta.getDocument().getLength(), "  •调整  完善具有多项选择的设置项之间的逻辑关系，并添加了一些提示"+"\n", doc);
 			jta.getDocument().insertString(jta.getDocument().getLength(), "  •调整  算法优化，效率提高（并不是很明显...）"+"\n", doc);
 			jta.getDocument().insertString(jta.getDocument().getLength(), "  •其他  删除冗余代码、合并日志，上传至GitHub"+"\n", doc);			
 

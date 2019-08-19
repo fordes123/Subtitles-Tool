@@ -102,7 +102,7 @@ public class About extends JPanel {
 			}
 		});
 
-		jl_Date = new JLabel("编译日期 ：2019.6.23");
+		jl_Date = new JLabel("编译日期 ：2019.8.19");
 		jl_Date.setFont(new Font("微软雅黑", 0, 18));
 		jl_Date.setForeground(Color.black);
 		jl_Date.setBounds(0, 555, 200, 30);

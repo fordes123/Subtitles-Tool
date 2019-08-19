@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -15,14 +14,13 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.SubTool.API.ColorAPI;
+import com.SubTool.API.ConfigAPI;
 import com.SubTool.API.DataAPI;
-import com.SubTool.API.DataAPI.CONFIG;
 import com.SubTool.API.ViewAPI;
 
 public class Setting extends JPanel {
@@ -35,11 +33,11 @@ public class Setting extends JPanel {
 	// 全局变量
 	public JPanel p = this;
 	public JLabel L1, L2, L3, L4 = null;
-	public JLabel L11, L12, L13, L14, L21, L22, L24, L25, L23, L31, L32, L33, L34, L41 ,L42= null;
+	public JLabel L11, L12, L13, L14, L21, L22, L24, L25, L23, L31, L32, L33, L34, L35, L41, L42 = null;
 	@SuppressWarnings("rawtypes")
 	public JComboBox L2_j1, L1_j1, L1_j2, L1_j5, L1_j3, L2_j3, L2_j4, L3_j3 = null; // 下拉框
 	public JCheckBox L1_j4, L1_j6, L1_j7, L1_j8, L1_j9, L2_j2, L2_j5, L2_j6, L2_j7, L3_j1, L3_j2, L3_j4, L3_j5, L3_j6,
-			L4_j1 = null; // 复选框
+			L3_j7, L3_j8, L4_j1 = null; // 复选框
 
 	public Color fontcolor = null;
 	public Color sidecolor = null;
@@ -47,12 +45,12 @@ public class Setting extends JPanel {
 	public File bgfile = null;
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Setting(JFrame f,CONFIG config,ViewAPI api,DataAPI data,ColorAPI color) {
+	public Setting(JFrame f, ConfigAPI config, ViewAPI api, DataAPI data, ColorAPI color) {
 		// TODO 自动生成的构造函数存根
-		//ViewAPI api = new ViewAPI();
-		//DataAPI data=new DataAPI();
-		//ColorAPI color = new ColorAPI();
-		//CONFIG config=data.reconfig();
+		// ViewAPI api = new ViewAPI();
+		// DataAPI data=new DataAPI();
+		// ColorAPI color = new ColorAPI();
+		// CONFIG config=data.reconfig();
 		// 设置面板属性
 		p.setBounds(90, 50, 1070, 600);
 		p.setLayout(null);
@@ -78,10 +76,13 @@ public class Setting extends JPanel {
 		jsp.setOpaque(false);// 透明
 		jsp.getViewport().setOpaque(false); // 设置内容窗格透明
 		jsp.setBackground(null);// 颜色为空，设置颜色后才可设置透明
-		p.add(jsp,new Integer(0));
+		p.add(jsp, new Integer(0));
 
 		/*
-		 * ======================================================================== 界面设置
+		 * ========================================================================
+		 * 
+		 * 界面设置
+		 * 
 		 * ==========================================================================
 		 */
 		L1 = new JLabel("浏览设置");
@@ -125,7 +126,7 @@ public class Setting extends JPanel {
 		L1_j1.setFont(new Font("华文细黑", 0, 21));
 		pane.add(L1_j1);
 		L1_j1.setSelectedItem("微软雅黑");
-		if(!(config==null))
+		if (!(config == null))
 			L1_j1.setSelectedIndex(config.v4);
 
 		// 大小
@@ -136,10 +137,9 @@ public class Setting extends JPanel {
 		L1_j2.setFont(new Font("华文细黑", 0, 21));
 		pane.add(L1_j2);
 		L1_j2.setOpaque(false);
-		if(!(config==null))
+		if (!(config == null))
 			L1_j2.setSelectedIndex(config.v5);
-		
-		
+
 		// 字体颜色
 		L1_j3 = new JComboBox(color.RFL());
 		L1_j3.setBounds(140, 470, 160, 32);
@@ -147,7 +147,7 @@ public class Setting extends JPanel {
 		pane.add(L1_j3);
 		L1_j3.setOpaque(false);
 		L1_j3.setSelectedIndex(0);
-		if(!(config==null))
+		if (!(config == null))
 			L1_j3.setSelectedIndex(config.v6);
 
 		L1_j4 = new JCheckBox("自定义字体颜色", false);
@@ -156,9 +156,10 @@ public class Setting extends JPanel {
 		L1_j4.setOpaque(false);
 		L1_j4.setFocusPainted(false);// 去除按钮点击焦点
 		pane.add(L1_j4);
-		if(!(config==null)) {
+		if (!(config == null)) {
 			L1_j4.setSelected(config.t4);
-			fontcolor=config.fontolor;}
+			fontcolor = config.fontolor;
+		}
 		L1_j4.addActionListener(new ActionListener() {
 
 			@Override
@@ -182,7 +183,7 @@ public class Setting extends JPanel {
 		pane.add(L1_j5);
 		L1_j5.setOpaque(false);
 		L1_j5.setSelectedIndex(0);
-		if(!(config==null))
+		if (!(config == null))
 			L1_j5.setSelectedIndex(config.v7);
 
 		L1_j6 = new JCheckBox("使用组合风格", false);
@@ -191,7 +192,7 @@ public class Setting extends JPanel {
 		L1_j6.setOpaque(false);
 		L1_j6.setFocusPainted(false);// 去除按钮点击焦点
 		pane.add(L1_j6);
-		if(!(config==null))
+		if (!(config == null))
 			L1_j6.setSelected(config.t5);
 		L1_j6.addActionListener(new ActionListener() {
 
@@ -220,7 +221,7 @@ public class Setting extends JPanel {
 		L1_j7.setFocusPainted(false);// 去除按钮点击焦点
 		L1_j7.setVisible(false);
 		pane.add(L1_j7);
-		if(!(config==null))
+		if (!(config == null))
 			L1_j7.setSelected(config.t6);
 
 		L1_j8 = new JCheckBox("斜体", false);
@@ -230,7 +231,7 @@ public class Setting extends JPanel {
 		L1_j8.setFocusPainted(false);// 去除按钮点击焦点
 		L1_j8.setVisible(false);
 		pane.add(L1_j8);
-		if(!(config==null))
+		if (!(config == null))
 			L1_j8.setSelected(config.t7);
 
 		L1_j9 = new JCheckBox("下划线", false);
@@ -240,12 +241,36 @@ public class Setting extends JPanel {
 		L1_j9.setFocusPainted(false);// 去除按钮点击焦点
 		L1_j9.setVisible(false);
 		pane.add(L1_j9);
-		if(!(config==null))
+		if (!(config == null))
 			L1_j9.setSelected(config.t8);
 
+		L1_j3.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO 自动生成的方法存根
+				if (L1_j4.isSelected()) {
+					new Message(f, "已自动关闭自定义颜色~", 3000).start();
+					L1_j4.setSelected(false);
+				}
+			}
+		});
+
+		L1_j5.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO 自动生成的方法存根
+				if (L1_j6.isSelected()) {
+					new Message(f, "已自动关闭组合风格~", 3000).start();
+					L1_j6.setSelected(false);
+				}
+			}
+		});
 		/*
-		 * ======================================================================== 
-		 *  主题设置
+		 * ========================================================================
+		 * 
+		 * 主题设置
 		 * ==========================================================================
 		 */
 		L2 = new JLabel("主题设置");
@@ -272,32 +297,6 @@ public class Setting extends JPanel {
 		L23.setBounds(50, 200, 200, 30);
 		pane.add(L23);
 
-		L2_j7 = new JCheckBox("自定义背景图", false);
-		L2_j7.setBounds(50, 1090, 180, 32);
-		L2_j7.setFont(new Font("华文细黑", 1, 24));
-		L2_j7.setOpaque(false);
-		L2_j7.setFocusPainted(false);// 去除按钮点击焦点
-		pane.add(L2_j7);
-		L2_j7.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO 自动生成的方法存根
-				if (L2_j7.isSelected()) {
-					JFileChooser chooser = new JFileChooser();
-					FileNameExtensionFilter filter = new FileNameExtensionFilter("选择图片文件", "png");
-					chooser.setFileFilter(filter);
-					int returnVal = chooser.showOpenDialog(f.getParent());
-					if (returnVal == JFileChooser.APPROVE_OPTION) {
-						bgfile = chooser.getSelectedFile();
-					} else
-						L2_j7.setSelected(false);
-				} else
-					L2_j7.setSelected(false);
-
-			}
-		});
-
 		// 主题选项
 		// String str21[] = { "默认黑", "火山棕", "深海绿", "卷轴黄", "水鸭青", "栗紫", "海报灰" };
 		L2_j1 = new JComboBox(color.RSL());
@@ -306,7 +305,7 @@ public class Setting extends JPanel {
 		L2_j1.setBorder(null);// 边框
 		L2_j1.setOpaque(false);
 		L2_j1.setBackground(null);
-		if(!(config==null))
+		if (!(config == null))
 			L2_j1.setSelectedIndex(config.v1);
 		pane.add(L2_j1);
 
@@ -316,9 +315,8 @@ public class Setting extends JPanel {
 		L2_j2.setOpaque(false);
 		L2_j2.setFocusPainted(false);// 去除按钮点击焦点
 		pane.add(L2_j2);
-		if(!(config==null))
+		if (!(config == null))
 			L2_j2.setSelected(config.t1);
-
 
 		// 侧栏主题选项
 		L2_j3 = new JComboBox(color.RSL());
@@ -328,7 +326,7 @@ public class Setting extends JPanel {
 		L2_j3.setBackground(null);
 		L2_j3.setOpaque(false);
 		pane.add(L2_j3);
-		if(!(config==null))
+		if (!(config == null))
 			L2_j3.setSelectedIndex(config.v2);
 
 		// 主界面主题选项
@@ -339,7 +337,7 @@ public class Setting extends JPanel {
 		L2_j4.setBackground(null);
 		L2_j4.setOpaque(false);
 		pane.add(L2_j4);
-		if(!(config==null))
+		if (!(config == null))
 			L2_j4.setSelectedIndex(config.v3);
 
 		L2_j5 = new JCheckBox("自定义颜色", false);
@@ -348,22 +346,26 @@ public class Setting extends JPanel {
 		L2_j5.setOpaque(false);
 		L2_j5.setFocusPainted(false);// 去除按钮点击焦点
 		pane.add(L2_j5);
-		if(!(config==null)) {
+		if (!(config == null)) {
 			L2_j5.setSelected(config.t2);
-			sidecolor=config.sidecolor;
+			sidecolor = config.sidecolor;
 		}
 		L2_j5.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO 自动生成的方法存根
+				if (!L2_j2.isSelected()) {
+					new Message(f, "已自动开启混搭~", 3000).start();
+					L2_j2.doClick();
+				}
 				if (L2_j5.isSelected()) {
 					sidecolor = JColorChooser.showDialog(f, "选取颜色", null);
 					if (sidecolor == null)
 						L2_j5.setSelected(false);
 				} else
 					L2_j5.setSelected(false);
-				//System.out.println("选到的颜色为：" + sidecolor);
+				// System.out.println("选到的颜色为：" + sidecolor);
 			}
 		});
 
@@ -373,30 +375,93 @@ public class Setting extends JPanel {
 		L2_j6.setOpaque(false);
 		L2_j6.setFocusPainted(false);// 去除按钮点击焦点
 		pane.add(L2_j6);
-		if(!(config==null)) {
+		if (!(config == null)) {
 			L2_j6.setSelected(config.t3);
-			pancolor=config.maincolor;
-		//	System.out.println(config.maincolor);
-			//System.out.println(pancolor);
+			pancolor = config.maincolor;
+			// System.out.println(config.maincolor);
+			// System.out.println(pancolor);
 		}
 		L2_j6.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO 自动生成的方法存根
+				if (!L2_j2.isSelected()) {
+					new Message(f, "已自动开启混搭~", 3000).start();
+					L2_j2.doClick();
+				}
 				if (L2_j6.isSelected()) {
 					pancolor = JColorChooser.showDialog(f, "选取颜色", null);
 					if (pancolor == null)
 						L2_j6.setSelected(false);
 				} else
 					L2_j6.setSelected(false);
-				//System.out.println("选到的颜色为：" + pancolor);
+				// System.out.println("选到的颜色为：" + pancolor);
+			}
+		});
+
+		L2_j3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO 自动生成的方法存根
+				if (L2_j5.isSelected()) {
+					L2_j5.setSelected(false);
+					if (!L2_j2.isSelected()) {// 调整自定义主题时混搭未开启
+						new Message(f, "已自动开启混搭并关闭了自定义颜色~", 3000).start();
+						L2_j2.setSelected(true);
+					} else {
+						new Message(f, "已自动关闭了自定义颜色~", 3000).start();
+					}
+				} else {
+					if (!L2_j2.isSelected())
+						new Message(f, "已自动开启混搭~", 3000).start();
+					L2_j2.setSelected(true);
+				}
+
+			}
+		});
+
+		L2_j4.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO 自动生成的方法存根
+				if (L2_j6.isSelected()) {
+					L2_j6.setSelected(false);
+					if (!L2_j2.isSelected()) {// 调整自定义主题时混搭未开启
+						new Message(f, "已自动开启混搭并关闭了自定义颜色~", 3000).start();
+						L2_j2.setSelected(true);
+					} else {
+						new Message(f, "已自动关闭了自定义颜色~", 3000).start();
+					}
+				} else {
+					if (!L2_j2.isSelected())
+						new Message(f, "已自动开启混搭~", 3000).start();
+					L2_j2.setSelected(true);
+				}
+
+			}
+		});
+
+		L2_j1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO 自动生成的方法存根
+				if (L2_j2.isSelected() || L2_j5.isSelected() || L2_j6.isSelected()) {
+					new Message(f, "已自动关闭主题混搭~", 3000).start();
+					L2_j2.setSelected(false);
+					L2_j5.setSelected(false);
+					L2_j6.setSelected(false);
+				}
 			}
 		});
 
 		/*
-		 * ======================================================================== 功能设置
-		 * ==========================================================================
+		 * ====================================================================
+		 * 
+		 * 功能设置
+		 * 
+		 * ====================================================================
 		 */
 		L3 = new JLabel("功能设置");
 		L3.setFont(new Font("微软雅黑", 1, 26));
@@ -428,14 +493,20 @@ public class Setting extends JPanel {
 		L34.setBounds(50, 860, 200, 30);
 		pane.add(L34);
 
+		L35 = new JLabel("启动模式");
+		L35.setFont(new Font("华文细黑", 1, 23));
+		L35.setForeground(null);
+		L35.setBounds(50, 920, 200, 30);
+		pane.add(L35);
+
 		L3_j1 = new JCheckBox("检测修改并自动保存", true);
 		L3_j1.setBounds(180, 680, 250, 30);
 		L3_j1.setFont(new Font("华文细黑", 0, 24));
 		L3_j1.setFocusPainted(false);// 去除按钮点击焦点
 		L3_j1.setOpaque(false);
 		pane.add(L3_j1);
-		if(config!=null)
-			L3_j1.setSelected(config.t9);
+		if (config != null)
+			L3_j1.setSelected(config.t13);
 
 		L3_j2 = new JCheckBox("自定义编码", false);
 		L3_j2.setBounds(180, 740, 200, 30);
@@ -443,8 +514,8 @@ public class Setting extends JPanel {
 		L3_j2.setFocusPainted(false);// 去除按钮点击焦点
 		L3_j2.setOpaque(false);
 		pane.add(L3_j2);
-		if(config!=null) 
-			L3_j2.setSelected(config.t10);
+		if (config != null)
+			L3_j2.setSelected(!config.t13);
 
 		String str5[] = { "UTF-8", "GBK", "GB2312" };
 		L3_j3 = new JComboBox(str5);
@@ -455,9 +526,9 @@ public class Setting extends JPanel {
 		L3_j3.setOpaque(false);
 		L3_j3.setSelectedIndex(0);
 		L3_j3.setVisible(false);// 默认不显示
-		if(config!=null) {
+		if (config != null) {
 			L3_j3.setSelectedIndex(config.v8);
-			if(L3_j2.isSelected())
+			if (L3_j2.isSelected())
 				L3_j3.setOpaque(true);
 		}
 		L3_j2.addActionListener(new ActionListener() {
@@ -498,9 +569,10 @@ public class Setting extends JPanel {
 		L3_j5.setOpaque(false);
 		L3_j5.setFocusPainted(false);// 去除按钮点击焦点
 		pane.add(L3_j5);
-		if(config!=null) {
+		if (config != null) {
 			L3_j4.setSelected(config.t11);
-			L3_j5.setSelected(!config.t11);}
+			L3_j5.setSelected(!config.t11);
+		}
 		L3_j5.addActionListener(new ActionListener() {
 
 			@Override
@@ -513,26 +585,103 @@ public class Setting extends JPanel {
 			}
 		});
 
-		L3_j6 = new JCheckBox("保存设置到配置文件", false);
+		L3_j6 = new JCheckBox("保存设置到配置文件", true);
 		L3_j6.setBounds(180, 860, 250, 30);
 		L3_j6.setFont(new Font("华文细黑", 0, 24));
 		L3_j6.setOpaque(false);
 		L3_j6.setFocusPainted(false);// 去除按钮点击焦点
 		pane.add(L3_j6);
-		if(config!=null)
+		if (config != null)
 			L3_j6.setSelected(config.t12);
+
+		L3_j7 = new JCheckBox("打开最后编辑的文件", true);
+		L3_j7.setBounds(180, 920, 250, 26);
+		L3_j7.setFont(new Font("华文细黑", 0, 24));
+		L3_j7.setOpaque(false);
+		L3_j7.setFocusPainted(false);// 去除按钮点击焦点
+		pane.add(L3_j7);
+		L3_j7.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO 自动生成的方法存根
+				if (!L3_j6.isSelected()) {
+					L3_j7.setSelected(false);
+					L3_j8.setSelected(true);
+					new Message(f, "设置不可用，请开启 “保存设置到配置文件” 后再启用本功能~", 3000).start();
+				} else {
+					if (L3_j7.isSelected())
+						L3_j8.setSelected(false);
+					else
+						L3_j8.setSelected(true);
+				}
+			}
+		});
+
+		L3_j8 = new JCheckBox("打开固定工作目录", false);
+		L3_j8.setBounds(440, 920, 250, 26);
+		L3_j8.setFont(new Font("华文细黑", 0, 24));
+		L3_j8.setOpaque(false);
+		L3_j8.setFocusPainted(false);// 去除按钮点击焦点
+		pane.add(L3_j8);
+		if (config != null) {
+			L3_j7.setSelected(config.t13);
+			L3_j8.setSelected(!config.t13);
+		}
+		L3_j8.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO 自动生成的方法存根
+				if (!L3_j6.isSelected()) {
+					L3_j7.setSelected(false);
+					L3_j8.setSelected(true);
+				} else {
+					if (L3_j8.isSelected()) {
+						L3_j7.setSelected(false);
+						//选择工作目录
+						String temp=data.select(f);
+						if(temp==null) {
+							new Message(f, "选择失败，操作无效~",2000).start();
+						}else
+							data.workmode=temp;
+						//System.out.println("选择的工作空间目录为："+data.workmode);
+					
+					
+					}
+					else 
+						L3_j7.setSelected(true);
+						
+				}
+
+			}
+		});
+		L3_j6.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO 自动生成的方法存根
+				if (!L3_j6.isSelected()) {
+					new Message(f, "注意，当关闭此项时，启动模式中 “打开最后编辑的文件” 将不可用~", 3000).start();
+					L3_j7.setSelected(false);
+					L3_j8.setSelected(true);
+				}
+			}
+		});
 		/*
-		 * ======================================================================== 实验性
-		 * 功能 ==========================================================================
+		 * ========================================================================
+		 * 
+		 * 实验性功能
+		 * ==========================================================================
 		 */
 		L4 = new JLabel("实验功能");
 		L4.setFont(new Font("微软雅黑", 1, 26));
 		L4.setForeground(null);
-		L4.setBounds(0, 940, 200, 30);
+		L4.setBounds(0, 1000, 200, 30);
 		pane.add(L4);
 
 		L4_j1 = new JCheckBox("超级过滤");
-		L4_j1.setBounds(50, 1010, 250, 30);
+		L4_j1.setBounds(50, 1070, 250, 30);
 		L4_j1.setFont(new Font("华文细黑", 1, 23));
 		L4_j1.setFocusPainted(false);// 去除按钮点击焦点
 		L4_j1.setOpaque(false);
@@ -541,15 +690,41 @@ public class Setting extends JPanel {
 		L41 = new JLabel("（主界面过滤掉时间轴相关信息，只显示字幕对话内容）");
 		L41.setFont(new Font("华文细黑", 0, 18));
 		L41.setForeground(null);
-		L41.setBounds(50, 1040, 500, 20);
+		L41.setBounds(50, 1100, 500, 20);
 		pane.add(L41);
+
+		L2_j7 = new JCheckBox("自定义背景图", false);
+		L2_j7.setBounds(50, 1150, 180, 32);
+		L2_j7.setFont(new Font("华文细黑", 1, 24));
+		L2_j7.setOpaque(false);
+		L2_j7.setFocusPainted(false);// 去除按钮点击焦点
+		pane.add(L2_j7);
+		L2_j7.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO 自动生成的方法存根
+				if (L2_j7.isSelected()) {
+					JFileChooser chooser = new JFileChooser();
+					FileNameExtensionFilter filter = new FileNameExtensionFilter("选择图片文件", "png");
+					chooser.setFileFilter(filter);
+					int returnVal = chooser.showOpenDialog(f.getParent());
+					if (returnVal == JFileChooser.APPROVE_OPTION) {
+						bgfile = chooser.getSelectedFile();
+					} else
+						L2_j7.setSelected(false);
+				} else
+					L2_j7.setSelected(false);
+
+			}
+		});
 
 		L42 = new JLabel("（选择一张图片作为主界面背景，兼容性较差）");
 		L42.setFont(new Font("华文细黑", 0, 18));
 		L42.setForeground(null);
-		L42.setBounds(50, 1120, 500, 20);
+		L42.setBounds(50, 1180, 500, 20);
 		pane.add(L42);
-		
+
 	}
 
 }
