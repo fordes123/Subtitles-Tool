@@ -8,8 +8,4 @@
 <fancybox>![](https://ae01.alicdn.com/kf/Hfbef2b20a7f34ebd84a1558dbd9fe5ee2.jpg)<fancybox>
 
 ***
-考虑到java并不适合桌面开发，准备将程序迁移至Golang平台，同时也会推出新的版本。
-
-届时本项目将会停止维护。
-
-当然，这需要一些时间，至少不是最近可以完成的
+正在重构全新版本，敬请期待
