@@ -8,4 +8,4 @@
 <fancybox>![](https://ae01.alicdn.com/kf/Hfbef2b20a7f34ebd84a1558dbd9fe5ee2.jpg)<fancybox>
 
 ***
-正在重构全新版本，敬请期待
+此项目已停止维护，新版本托管在[https://github.com/fordes123/SubtitlesView](https://github.com/fordes123/SubtitlesView)
